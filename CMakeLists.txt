@@ -24,6 +24,20 @@ if(NOT EXISTS "${CANOPENNODE_DIRECTORY}/CMakeLists.txt")
 			"contain CMakeLists.txt")
 endif()
 
+if(NOT DEFINED CANOPENNODE_CONFIGURATION_H_DIRECTORY)
+	message(SEND_ERROR "Variable with path to CANopenNode-configuration.h - CANOPENNODE_CONFIGURATION_H_DIRECTORY - is "
+			"not defined")
+endif()
+if(NOT IS_DIRECTORY "${CANOPENNODE_CONFIGURATION_H_DIRECTORY}")
+	message(SEND_ERROR "Path to CANopenNode-configuration.h - "
+			"CANOPENNODE_CONFIGURATION_H_DIRECTORY = ${CANOPENNODE_CONFIGURATION_H_DIRECTORY} - is not valid")
+endif()
+if(NOT EXISTS "${CANOPENNODE_CONFIGURATION_H_DIRECTORY}/CANopenNode-configuration.h")
+	message(SEND_ERROR "Path to CANopenNode-configuration.h - "
+			"CANOPENNODE_CONFIGURATION_H_DIRECTORY = ${CANOPENNODE_CONFIGURATION_H_DIRECTORY} - does not contain "
+			"CANopenNode-configuration.h")
+endif()
+
 if(NOT DEFINED CANOPENNODE_CO_OD_H_DIRECTORY)
 	message(SEND_ERROR "Variable with path to CO_OD.h - CANOPENNODE_CO_OD_H_DIRECTORY - is not defined")
 endif()
@@ -38,5 +52,14 @@ endif()
 
 add_subdirectory("${CANOPENNODE_DIRECTORY}" CANopenNode)
 
+add_library(CANopenNode-object-library OBJECT
+		canOpenNodeLocks.cpp)
+target_include_directories(CANopenNode-object-library PRIVATE
+		$<TARGET_PROPERTY:CANopenNode,INTERFACE_INCLUDE_DIRECTORIES>)
+
 target_include_directories(CANopenNode PUBLIC
+		include
+		${CANOPENNODE_CONFIGURATION_H_DIRECTORY}
 		${CANOPENNODE_CO_OD_H_DIRECTORY})
+target_sources(CANopenNode INTERFACE
+		$<TARGET_OBJECTS:CANopenNode-object-library>)
