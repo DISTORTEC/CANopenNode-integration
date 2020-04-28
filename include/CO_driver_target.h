@@ -112,7 +112,7 @@ void canOpenNodeUnlockSend(void);
  * \return true if new message has arrived, false otherwise
  */
 
-#define IS_CANrxNew(rxNew)					((uintptr_t)rxNew != 0)
+#define CO_FLAG_READ(rxNew)					((uintptr_t)rxNew != 0)
 
 /**
  * \brief Marks message as "new".
@@ -120,7 +120,7 @@ void canOpenNodeUnlockSend(void);
  * \param [in] rxNew is the "new" flag of received message
  */
 
-#define SET_CANrxNew(rxNew)					do { __sync_synchronize(); rxNew = (void*)1; } while (0)
+#define CO_FLAG_SET(rxNew)					do { __sync_synchronize(); rxNew = (void*)1; } while (0)
 
 /**
  * \brief Marks message as "processed"
@@ -128,7 +128,7 @@ void canOpenNodeUnlockSend(void);
  * \param [in] rxNew is the "new" flag of received message
  */
 
-#define CLEAR_CANrxNew(rxNew)				do { __sync_synchronize(); rxNew = (void*)0; } while (0)
+#define CO_FLAG_CLEAR(rxNew)				do { __sync_synchronize(); rxNew = (void*)0; } while (0)
 
 /*---------------------------------------------------------------------------------------------------------------------+
 | global types
