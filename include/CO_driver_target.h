@@ -68,6 +68,15 @@ void canOpenNodeUnlockSend(void);
 /// configure endianness used by CANopenNode
 #define CO_LITTLE_ENDIAN
 
+/// swap bytes in a 16-bit variable on big-endian, dummy for little-endian
+#define CO_SWAP_16(x)						(x)
+
+/// swap bytes in a 32-bit variable on big-endian, dummy for little-endian
+#define CO_SWAP_32(x)						(x)
+
+/// swap bytes in a 64-bit variable on big-endian, dummy for little-endian
+#define CO_SWAP_64(x)						(x)
+
 /**
  * \brief Locks critical section for CO_CANsend() and CO_CANclearPendingSyncPDOs().
  */
