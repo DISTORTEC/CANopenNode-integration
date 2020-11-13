@@ -25,7 +25,8 @@ namespace
 distortos::Mutex emergencyMutex {distortos::Mutex::Protocol::priorityInheritance};
 
 /// mutex for serializing access to object dictionary
-distortos::Mutex objectDictionaryMutex {distortos::Mutex::Protocol::priorityInheritance};
+distortos::Mutex objectDictionaryMutex {distortos::Mutex::Type::recursive,
+		distortos::Mutex::Protocol::priorityInheritance};
 
 /// mutex for serializing access to CO_CANsend() and CO_CANclearPendingSyncPDOs()
 distortos::Mutex sendMutex {distortos::Mutex::Protocol::priorityInheritance};
