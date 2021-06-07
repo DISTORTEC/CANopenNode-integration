@@ -58,8 +58,6 @@ add_library(CANopenNode STATIC
 		${CANOPENNODE_DIRECTORY}/305/CO_LSSslave.c
 		${CANOPENNODE_DIRECTORY}/309/CO_gateway_ascii.c
 		${CANOPENNODE_DIRECTORY}/extra/CO_trace.c)
-target_compile_options(CANopenNode PRIVATE
-		-Wno-type-limits)
 target_include_directories(CANopenNode PUBLIC
 		${CANOPENNODE_DIRECTORY}
 		include
