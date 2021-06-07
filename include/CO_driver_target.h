@@ -2,7 +2,7 @@
  * \file
  * \brief CANopenNode integration header
  *
- * \author Copyright (C) 2020 Kamil Szczygiel http://www.distortec.com http://www.freddiechopin.info
+ * \author Copyright (C) 2020-2021 Kamil Szczygiel https://distortec.com https://freddiechopin.info
  *
  * \par License
  * This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not
@@ -27,39 +27,55 @@ extern "C"
 
 /**
  * \brief Locks critical section for CO_errorReport() and CO_errorReset().
+ *
+ * \param [in] canModule is a pointer to CAN module, it must contain a non-recursive distortos_Mutex named
+ * \a emergencyLock
  */
 
-void canOpenNodeLockEmergency(void);
+void canOpenNodeLockEmergency(CO_CANmodule_t* canModule);
 
 /**
  * \brief Locks critical section for accessing object dictionary.
+ *
+ * \param [in] canModule is a pointer to CAN module, it must contain a recursive distortos_Mutex named
+ * \a objectDictionaryLock
  */
 
-void canOpenNodeLockObjectDictionary(void);
+void canOpenNodeLockObjectDictionary(CO_CANmodule_t* canModule);
 
 /**
  * \brief Locks critical section for CO_CANsend() and CO_CANclearPendingSyncPDOs().
+ *
+ * \param [in] canModule is a pointer to CAN module, it must contain a non-recursive distortos_Mutex named \a sendLock
  */
 
-void canOpenNodeLockSend(void);
+void canOpenNodeLockSend(CO_CANmodule_t* canModule);
 
 /**
  * \brief Unlocks critical section for CO_errorReport() and CO_errorReset().
+ *
+ * \param [in] canModule is a pointer to CAN module, it must contain a non-recursive distortos_Mutex named
+ * \a emergencyLock
  */
 
-void canOpenNodeUnlockEmergency(void);
+void canOpenNodeUnlockEmergency(CO_CANmodule_t* canModule);
 
 /**
  * \brief Unlocks critical section for accessing object dictionary.
+ *
+ * \param [in] canModule is a pointer to CAN module, it must contain a recursive distortos_Mutex named
+ * \a objectDictionaryLock
  */
 
-void canOpenNodeUnlockObjectDictionary(void);
+void canOpenNodeUnlockObjectDictionary(CO_CANmodule_t* canModule);
 
 /**
  * \brief Unlocks critical section for CO_CANsend() and CO_CANclearPendingSyncPDOs().
+ *
+ * \param [in] canModule is a pointer to CAN module, it must contain a non-recursive distortos_Mutex named \a sendLock
  */
 
-void canOpenNodeUnlockSend(void);
+void canOpenNodeUnlockSend(CO_CANmodule_t* canModule);
 
 /*---------------------------------------------------------------------------------------------------------------------+
 | global defines
@@ -79,39 +95,55 @@ void canOpenNodeUnlockSend(void);
 
 /**
  * \brief Locks critical section for CO_CANsend() and CO_CANclearPendingSyncPDOs().
+ *
+ * \param [in] canModule is a pointer to CAN module, it must contain a non-recursive distortos_Mutex named \a sendLock
  */
 
-#define CO_LOCK_CAN_SEND()					canOpenNodeLockSend()
+#define CO_LOCK_CAN_SEND(canModule)			canOpenNodeLockSend(canModule)
 
 /**
  * \brief Locks critical section for CO_errorReport() and CO_errorReset().
+ *
+ * \param [in] canModule is a pointer to CAN module, it must contain a non-recursive distortos_Mutex named
+ * \a emergencyLock
  */
 
-#define CO_LOCK_EMCY()						canOpenNodeLockEmergency()
+#define CO_LOCK_EMCY(canModule)				canOpenNodeLockEmergency(canModule)
 
 /**
  * \brief Locks critical section for accessing object dictionary.
+ *
+ * \param [in] canModule is a pointer to CAN module, it must contain a recursive distortos_Mutex named
+ * \a objectDictionaryLock
  */
 
-#define CO_LOCK_OD()						canOpenNodeLockObjectDictionary()
+#define CO_LOCK_OD(canModule)				canOpenNodeLockObjectDictionary(canModule)
 
 /**
  * \brief Unlocks critical section for CO_CANsend() and CO_CANclearPendingSyncPDOs().
+ *
+ * \param [in] canModule is a pointer to CAN module, it must contain a non-recursive distortos_Mutex named \a sendLock
  */
 
-#define CO_UNLOCK_CAN_SEND()				canOpenNodeUnlockSend()
+#define CO_UNLOCK_CAN_SEND(canModule)		canOpenNodeUnlockSend(canModule)
 
 /**
  * \brief Unlocks critical section for CO_errorReport() and CO_errorReset().
+ *
+ * \param [in] canModule is a pointer to CAN module, it must contain a non-recursive distortos_Mutex named
+ * \a emergencyLock
  */
 
-#define CO_UNLOCK_EMCY()					canOpenNodeUnlockEmergency()
+#define CO_UNLOCK_EMCY(canModule)			canOpenNodeUnlockEmergency(canModule)
 
 /**
  * \brief Unlocks critical section for accessing object dictionary.
+ *
+ * \param [in] canModule is a pointer to CAN module, it must contain a recursive distortos_Mutex named
+ * \a objectDictionaryLock
  */
 
-#define CO_UNLOCK_OD()						canOpenNodeUnlockObjectDictionary()
+#define CO_UNLOCK_OD(canModule)				canOpenNodeUnlockObjectDictionary(canModule)
 
 /**
  * \brief Checks whether new message has arrived.
