@@ -38,18 +38,6 @@ if(NOT EXISTS "${CANOPENNODE_CONFIGURATION_H_DIRECTORY}/CANopenNode-configuratio
 			"CANopenNode-configuration.h")
 endif()
 
-if(NOT DEFINED CANOPENNODE_CO_OD_H_DIRECTORY)
-	message(SEND_ERROR "Variable with path to CO_OD.h - CANOPENNODE_CO_OD_H_DIRECTORY - is not defined")
-endif()
-if(NOT IS_DIRECTORY "${CANOPENNODE_CO_OD_H_DIRECTORY}")
-	message(SEND_ERROR "Path to CO_OD.h - CANOPENNODE_CO_OD_H_DIRECTORY = ${CANOPENNODE_CO_OD_H_DIRECTORY} - is not "
-			"valid")
-endif()
-if(NOT EXISTS "${CANOPENNODE_CO_OD_H_DIRECTORY}/CO_OD.h")
-	message(SEND_ERROR "Path to CO_OD.h - CANOPENNODE_CO_OD_H_DIRECTORY = ${CANOPENNODE_CO_OD_H_DIRECTORY} - does not "
-			"contain CO_OD.h")
-endif()
-
 add_library(CANopenNode STATIC
 		${CANOPENNODE_DIRECTORY}/CANopen.c
 		${CANOPENNODE_DIRECTORY}/301/CO_Emergency.c
@@ -75,8 +63,7 @@ target_compile_options(CANopenNode PRIVATE
 target_include_directories(CANopenNode PUBLIC
 		${CANOPENNODE_DIRECTORY}
 		include
-		${CANOPENNODE_CONFIGURATION_H_DIRECTORY}
-		${CANOPENNODE_CO_OD_H_DIRECTORY})
+		${CANOPENNODE_CONFIGURATION_H_DIRECTORY})
 
 add_library(CANopenNode-object-library OBJECT
 		canOpenNodeLocks.cpp)
