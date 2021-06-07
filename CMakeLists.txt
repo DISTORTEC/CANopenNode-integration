@@ -3,7 +3,7 @@
 #
 # This is the main CMakeLists.txt for CANopenNode integration with distortos
 #
-# author: Copyright (C) 2020 Kamil Szczygiel http://www.distortec.com http://www.freddiechopin.info
+# author: Copyright (C) 2020-2021 Kamil Szczygiel https://distortec.com https://freddiechopin.info
 #
 # This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not
 # distributed with this file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -56,6 +56,7 @@ add_library(CANopenNode STATIC
 		${CANOPENNODE_DIRECTORY}/301/CO_fifo.c
 		${CANOPENNODE_DIRECTORY}/301/CO_HBconsumer.c
 		${CANOPENNODE_DIRECTORY}/301/CO_NMT_Heartbeat.c
+		${CANOPENNODE_DIRECTORY}/301/CO_ODinterface.c
 		${CANOPENNODE_DIRECTORY}/301/CO_PDO.c
 		${CANOPENNODE_DIRECTORY}/301/CO_SDOclient.c
 		${CANOPENNODE_DIRECTORY}/301/CO_SDOserver.c
